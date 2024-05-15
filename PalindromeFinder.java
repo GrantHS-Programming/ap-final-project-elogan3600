@@ -28,9 +28,6 @@ public class PalindromeFinder {
                         next += 2;
                         strNext = next + "";
                         dig = Integer.valueOf(strNext.substring(0,1));
-                        System.out.println("DIG IS " + dig + ", NUM IS " + next);
-                        System.out.println(strNext.charAt(0));
-                        System.out.println("Strnext is " + strNext);
                     }
                     else {
                         next += 11;
@@ -41,7 +38,6 @@ public class PalindromeFinder {
                         next += 2;
                         strNext = next + "";
                         dig = Integer.valueOf(strNext.substring(0,1));
-                        System.out.println("DIG IS " + dig + ", NUM IS " + next);
                     }
                     else if (!(next + 9 + "").substring(0, 1).equals(dig + "")) {
                         next += 11;
@@ -188,8 +184,33 @@ public class PalindromeFinder {
                         dig3 = Integer.valueOf(strNext.substring(2,3));
                         dig4 = Integer.valueOf(strNext.substring(3,4));
                     }
-                    else if (!(next + 11000 + "").substring(3,4).equals(dig4 + "") && (next + 11000 + "").substring(2,3).equals(dig3 + "")) {
+                    else if (!((next + 11000 + "").substring(3,4).equals(dig4 + "")) && (next + 11000 + "").substring(2,3).equals(dig3 + "")) {
                         next += 11000;
+                        strNext = next + "";
+                        dig = Integer.valueOf(strNext.substring(0,1));
+                        dig2 = Integer.valueOf(strNext.substring(1,2));
+                        dig3 = Integer.valueOf(strNext.substring(2,3));
+                        dig4 = Integer.valueOf(strNext.substring(3,4));
+                    }
+                    else if (!((next + 1100 + "").substring(2,3).equals(dig3 + "")) && (next + 1100 + "").substring(1,2).equals(dig2 + "")) {
+                        next += 1100;
+                        strNext = next + "";
+                        dig = Integer.valueOf(strNext.substring(0,1));
+                        dig2 = Integer.valueOf(strNext.substring(1,2));
+                        dig3 = Integer.valueOf(strNext.substring(2,3));
+                        dig4 = Integer.valueOf(strNext.substring(3,4));
+                    }
+                    else if (!((next + 110 + "").substring(1,2).equals(dig2 + "")) && (next + 110 + "").substring(0,1).equals(dig + "")) {
+                        next += 110;
+                        strNext = next + "";
+                        dig = Integer.valueOf(strNext.substring(0,1));
+                        dig2 = Integer.valueOf(strNext.substring(1,2));
+                        dig3 = Integer.valueOf(strNext.substring(2,3));
+                        dig4 = Integer.valueOf(strNext.substring(3,4));
+                    }
+                    else if (!((next + 11 + "").substring(0,1).equals(dig + ""))) {
+                        next += 11;
+                        strNext = next + "";
                         dig = Integer.valueOf(strNext.substring(0,1));
                         dig2 = Integer.valueOf(strNext.substring(1,2));
                         dig3 = Integer.valueOf(strNext.substring(2,3));
@@ -199,13 +220,33 @@ public class PalindromeFinder {
                         next += 10000;
                     }
                 }
+
                 palindromeList.add(next + "");
 
             }
             return palindromeList.toString();
         }
 
+        public static String inefficienFindPalindromes(int max) {
+            String backward = "";
+            String xString;
+            for (int x = 0; x != max; x++) {
+                xString = x + "";
+                for (int j = (x + "").length() - 1; j >= 0; j--) {
+                    backward += xString.substring(j, j + 1);
+                }
+                if (backward.equals(xString)) {
+                    palindromeList.add(backward);
+                }
+                backward = "";
+            }
+            return palindromeList.toString();
+        }
 
+    public static void main (String[]args){
+        System.out.println(findPalindromes(50000));
+        System.out.println(inefficienFindPalindromes(150010051));
+    }
         public static String findSuperPalindromes() {
             for (int i = 0; i < palindromeList.size(); i++) {
                 int intSquared = Integer.parseInt(palindromeList.get(i)) * Integer.parseInt(palindromeList.get(i));
@@ -221,9 +262,6 @@ public class PalindromeFinder {
             return superPalindromeList.toString();
         }
 
-        public static void main (String[]args){
-            System.out.println(findPalindromes(100000));
 
-        }
 }
 
