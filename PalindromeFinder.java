@@ -6,6 +6,7 @@ public class PalindromeFinder {
         private static final ArrayList<String> palindromeList = new ArrayList<String>();
         private static final ArrayList<String> superPalindromeList = new ArrayList<String>();
         private static final ArrayList<String> superDuperPalindromeList = new ArrayList<String>();
+        private static final ArrayList<String> ogPalindromeList = new ArrayList<String>();
         public static String findPalindromes(int iterations) {
             int next = 0;
             String strNext;
@@ -220,9 +221,34 @@ public class PalindromeFinder {
                         next += 10000;
                     }
                 }
+                else if (String.valueOf(next).length() == 10) {
+
+                }
 
                 palindromeList.add(next + "");
 
+            }
+            return palindromeList.toString();
+        }
+        public static String otherFindPalindromes(int max) {
+            String backward = "";
+            String xString;
+            for (int x = 0; x < 100; x++) {
+                xString = x + "";
+                for (int j = (x + "").length() - 1; j >= 0; j--) {
+                    backward += xString.substring(j, j + 1);
+                }
+                if (backward.equals(xString)) {
+                    palindromeList.add(backward);
+                }
+                backward = "";
+            }
+            int y = 0;
+            //Add number from the previous list to the middle?
+            for (int x = 10; x < max; x++) {
+                ogPalindromeList.add(palindromeList.get(x));
+                palindromeList.add(palindromeList.get(x).substring(0,1) + palindromeList.get(y) + palindromeList.get(x).substring(1));
+                y++;
             }
             return palindromeList.toString();
         }
@@ -240,13 +266,12 @@ public class PalindromeFinder {
                 }
                 backward = "";
             }
+
             return palindromeList.toString();
         }
 
-    public static void main (String[]args){
-        System.out.println(findPalindromes(75000));
-        System.out.println(findSuperPalindromes());
-        System.out.println(findSuperDuperPalindromes());
+    public static void main (String[]args) {
+        System.out.println(otherFindPalindromes(100));
     }
         public static String findSuperPalindromes() {
             for (int i = 0; i < palindromeList.size(); i++) {
