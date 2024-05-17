@@ -5,7 +5,7 @@ public class PalindromeFinder {
         //private static String[] palindromeArray = {}
         private static final ArrayList<String> palindromeList = new ArrayList<String>();
         private static final ArrayList<String> superPalindromeList = new ArrayList<String>();
-
+        private static final ArrayList<String> superDuperPalindromeList = new ArrayList<String>();
         public static String findPalindromes(int iterations) {
             int next = 0;
             String strNext;
@@ -244,8 +244,9 @@ public class PalindromeFinder {
         }
 
     public static void main (String[]args){
-        System.out.println(findPalindromes(50000));
-        System.out.println(inefficienFindPalindromes(150010051));
+        System.out.println(findPalindromes(75000));
+        System.out.println(findSuperPalindromes());
+        System.out.println(findSuperDuperPalindromes());
     }
         public static String findSuperPalindromes() {
             for (int i = 0; i < palindromeList.size(); i++) {
@@ -261,6 +262,22 @@ public class PalindromeFinder {
             }
             return superPalindromeList.toString();
         }
+
+    public static String findSuperDuperPalindromes() {
+        for (int i = 0; i < superPalindromeList.size(); i++) {
+            int intSquared = Integer.parseInt(superPalindromeList.get(i)) * Integer.parseInt(superPalindromeList.get(i));
+            String squared = intSquared + "";
+            String backward = "";
+            for (int j = squared.length() - 1; j >= 0; j--) {
+                backward += squared.substring(j, j + 1);
+            }
+            if (backward.equals(squared)) {
+                superDuperPalindromeList.add(backward);
+            }
+        }
+        return superDuperPalindromeList.toString();
+    }
+
 
 
 }
