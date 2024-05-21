@@ -6,7 +6,8 @@ public class PalindromeFinder {
         private static final ArrayList<String> palindromeList = new ArrayList<String>();
         private static final ArrayList<String> superPalindromeList = new ArrayList<String>();
         private static final ArrayList<String> superDuperPalindromeList = new ArrayList<String>();
-        private static final ArrayList<String> ogPalindromeList = new ArrayList<String>();
+        private static ArrayList<String> oddPalindromeList = new ArrayList<String>();
+        private static ArrayList<String> evenPalindromeList = new ArrayList<>();
         public static String findPalindromes(int iterations) {
             int next = 0;
             String strNext;
@@ -230,7 +231,7 @@ public class PalindromeFinder {
             }
             return palindromeList.toString();
         }
-        public static String otherFindPalindromes(int max) {
+        public static String otherFindPalindromes(int maxDig) {
             String backward = "";
             String xString;
             for (int x = 0; x < 100; x++) {
@@ -238,17 +239,37 @@ public class PalindromeFinder {
                 for (int j = (x + "").length() - 1; j >= 0; j--) {
                     backward += xString.substring(j, j + 1);
                 }
-                if (backward.equals(xString)) {
+                if (backward.equals(xString) && backward.length() % 2 == 0) {
+                    evenPalindromeList.add(backward);
+                    palindromeList.add(backward);
+                }
+                else if (backward.equals(xString)) {
+                    oddPalindromeList.add(backward);
                     palindromeList.add(backward);
                 }
                 backward = "";
             }
-            int y = 0;
-            //Add number from the previous list to the middle?
-            for (int x = 10; x < max; x++) {
-                ogPalindromeList.add(palindromeList.get(x));
-                palindromeList.add(palindromeList.get(x).substring(0,1) + palindromeList.get(y) + palindromeList.get(x).substring(1));
-                y++;
+            //Odd digit and even digit list? Odd is added into the middle when digit num is odd, even is the same for even digit num
+            for (int x = 0; x < maxDig; x++) {
+                int ogSize = oddPalindromeList.size();
+                oddPalindromeList = palindromeList;
+                evenPalindromeList = palindromeList;
+                for (int i = 10; i < ogSize; i++) {
+                    if ((palindromeList.get(i).substring(0,1) + oddPalindromeList.get(x) + palindromeList.get(i).substring(oddPalindromeList.get(x).length() + 1)).length() % 2 == 0) {
+                        oddPalindromeList.add(palindromeList.get(i).substring(0,1) + oddPalindromeList.get(x) + palindromeList.get(i).substring(1));
+                        palindromeList.add(palindromeList.get(i).substring(0,1) + oddPalindromeList.get(x) + palindromeList.get(i).substring(1));
+                    }
+                    else {
+                        evenPalindromeList.add(palindromeList.get(i).substring(0,1) + evenPalindromeList.get(x) + palindromeList.get(i).substring(1));
+                        palindromeList.add(palindromeList.get(i).substring(0,1) + evenPalindromeList.get(x) + palindromeList.get(i).substring((palindromeList.get(i).length() + 1) / 2));
+                    }
+                    if (palindromeList.get(palindromeList.size() - 1).equals("1211")) {
+                        System.out.println("i: " + i + ", x: " + x);
+                        System.out.println(".get(i): " + palindromeList.get(i));
+                        System.out.println("substring(1): " + palindromeList.get(i).substring(1));
+                        System.out.println();
+                    }
+                }
             }
             return palindromeList.toString();
         }
@@ -271,7 +292,7 @@ public class PalindromeFinder {
         }
 
     public static void main (String[]args) {
-        System.out.println(otherFindPalindromes(100));
+        System.out.println(otherFindPalindromes(5));
     }
         public static String findSuperPalindromes() {
             for (int i = 0; i < palindromeList.size(); i++) {
