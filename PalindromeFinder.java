@@ -244,17 +244,27 @@ public class PalindromeFinder {
             }
             int digits = 3;
             int y;
+            int firstNum;
             String add = "";
+            System.out.println("PalindromeList so far: " + palindromeList.toString());
             for (int x = 10; x < maxDig; x++) {
                 y = x - 10;
-                System.out.println(((Integer.parseInt(palindromeList.get(palindromeList.size() - 1)) + 1) + "").length() == digits);
-                while (!((Integer.parseInt(palindromeList.get(palindromeList.size() - 1) + 10)) + "").substring(0,1).equals(!(palindromeList.get(palindromeList.size() - 1).substring(0,1)))) {
+                firstNum = Integer.valueOf(palindromeList.get(x).substring(0,1));
+                System.out.println("FirstNum is " + firstNum);
+                System.out.println(Integer.valueOf(palindromeList.get(y + 10).substring(0,1)) == firstNum);
+                while (Integer.valueOf(palindromeList.get(y + 10).substring(0,1)) == firstNum) {
                     for (int i = 0; i < digits - 2; i++) {
                         add += palindromeList.get(y);
+                        if (palindromeList.get(palindromeList.size() - 1).length() > digits) {
+                            digits++;
+                        }
                     }
-                    palindromeList.add(palindromeList.get(x).substring(0,1) + add + palindromeList.get(x).substring(palindromeList.size() - 1));
+                    palindromeList.add(palindromeList.get(x).substring(0,1) + add + palindromeList.get(x).substring(palindromeList.get(x).length() - 1));
+                    System.out.println(palindromeList.get(palindromeList.size() - 1));
+                    add = "";
                     y++;
                 }
+
             }
             return palindromeList.toString();
         }
@@ -277,7 +287,7 @@ public class PalindromeFinder {
         }
 
     public static void main (String[]args) {
-        System.out.println(otherFindPalindromes(10000));
+        System.out.println(otherFindPalindromes(100));
     }
         public static String findSuperPalindromes() {
             for (int i = 0; i < palindromeList.size(); i++) {
