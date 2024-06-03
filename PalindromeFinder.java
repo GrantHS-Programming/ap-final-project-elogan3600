@@ -7,6 +7,8 @@ public class PalindromeFinder {
         private static final ArrayList<String> palindromeList = new ArrayList<String>();
         private static final ArrayList<String> superPalindromeList = new ArrayList<String>();
         private static final ArrayList<String> superDuperPalindromeList = new ArrayList<String>();
+        private static long startTime = System.nanoTime();
+        private static long endTime;
         public static String findPalindromes(int iterations) {
             int next = 0;
             String strNext;
@@ -221,14 +223,16 @@ public class PalindromeFinder {
                         next += 10000;
                     }
                 }
-                else if (String.valueOf(next).length() == 10) {
-
+                if (!palindromeList.isEmpty() && palindromeList.get(palindromeList.size() - 1).equals("55555555")) {
+                    endTime = System.nanoTime();
+                    return palindromeList.toString() + " Runtime: " +  (( (double) endTime - startTime) / 1000000000) + " seconds";
                 }
 
                 palindromeList.add(next + "");
 
             }
-            return palindromeList.toString();
+            endTime = System.nanoTime();
+            return palindromeList.toString() + " Runtime: " +  (( (double) endTime - startTime) / 1000000000) + " seconds";
         }
         public static String otherFindPalindromes(int maxDig) {
             String backward = "";
@@ -243,23 +247,38 @@ public class PalindromeFinder {
                 }
                 backward = "";
             }
-            int digits = 3;
-            int y;
-            int ogSize;
-            int ogSize2;
-            String add = "";
+            palindromeList.add(10, "00");
+            int ogSize = 10;
+            //00 isn't a number but is necessary
+            //numbers that
             System.out.println("PalindromeList so far: " + palindromeList.toString());
             for (int i = 0; i < maxDig; i++) {
-                ogSize = palindromeList.size() % 10 * 10;
-                for (int x = 10; x < 19; x++) {
-                    for (int f = 0; f < ogSize; f++) {
+                for (int x = 10; x <= 19; x++) {
+                    for (int f = ogSize / 10 - 1; f < ogSize; f++) {
                         palindromeList.add(palindromeList.get(x).substring(0,1) + palindromeList.get(f) + palindromeList.get(x).substring(palindromeList.get(x).length() - 1));
                     }
+                    System.out.println("first");
+                }
+                System.out.println("second");
+                ogSize *= 10;
+            }
+            for (int x = 1; x < palindromeList.size(); x++) {
+                if (palindromeList.get(x).charAt(0) == '0') {
+                    palindromeList.remove(x);
+                    x--;
                 }
             }
-
             System.out.println(palindromeList.size());
-            return palindromeList.toString();
+            endTime = System.nanoTime();
+            return palindromeList.toString() + " Runtime: " +  (( (double) endTime - startTime) / 1000000000) + " seconds";
+        }
+        public static String getFirst(int first) {
+            String firstNum = "[";
+            for (int x = 0; x < first; x++) {
+                firstNum += palindromeList.get(x) + ", ";
+            }
+            firstNum += "]";
+            return firstNum;
         }
 
         public static String inefficienFindPalindromes(int max) {
@@ -280,7 +299,7 @@ public class PalindromeFinder {
         }
 
     public static void main (String[]args) {
-        System.out.println(otherFindPalindromes(100));
+        System.out.println(otherFindPalindromes(4));
     }
         public static String findSuperPalindromes() {
             for (int i = 0; i < palindromeList.size(); i++) {
