@@ -85,7 +85,7 @@ public class Card {
                 if (!(deck.get(x).getFace().equals("jack"))) {
                     deck.get(x).addValue(6);
                 }
-                else if (deck.get(x).getFace().equals("jack")) {
+                else  {
                     deck.get(x).addValue(10);
                 }
             }

@@ -132,8 +132,8 @@ public class Euchre {
             if (answer.equalsIgnoreCase("yes")) {
                 Card.trumpSuit(deck.get(0).getSuit());
                 Card.addTrump(deck);
-                players[intDealer].addCard(deck.remove(0));
                 System.out.println(players[intDealer].getName() + " picks up " + Card.print(deck.get(0)).toLowerCase());
+                players[intDealer].addCard(deck.remove(0));
                 System.out.println("Which card would " + players[intDealer].getName() + " like to discard?");
                 players[intDealer].printHand();
                 int discard = myScanner.nextInt();
@@ -214,6 +214,7 @@ public class Euchre {
             }
 
             System.out.println(Card.print(players[start].removeHand(play - 1)) + " is led");
+            //why does this crash?
 
 
         }

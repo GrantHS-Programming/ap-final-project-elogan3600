@@ -260,6 +260,7 @@ public class PalindromeFinder {
                             System.out.println("prev num: " + palindromeList.get(palindromeList.size() - 2));
                         }
                         palindromeList.add(palindromeList.get(x).charAt(0) + palindromeList.get(f) + palindromeList.get(x).substring(palindromeList.get(x).length() - 1));
+                        System.out.println(palindromeList.get(x).charAt(0) + palindromeList.get(f) + palindromeList.get(x).substring(palindromeList.get(x).length() - 1));
                     }
                 }
                 ogSize *= 10;
@@ -269,6 +270,7 @@ public class PalindromeFinder {
                     palindromeList.remove(x);
                     x--;
                 }
+                System.out.println("for x: " + x);
             }
             System.out.println(palindromeList.size());
             endTime = System.nanoTime();
@@ -301,15 +303,15 @@ public class PalindromeFinder {
         }
 
     public static void main (String[]args) {
-        System.out.println(otherFindPalindromes(4));
-        long sum = 0;
-        for (int x = 0; x < palindromeList.size(); x++) {
+        System.out.println(otherFindPalindromes(10));
+        int x = 20;
+        int sum = 0;
+        while (palindromeList.get(x).length() == 3) {
             sum += Integer.parseInt(palindromeList.get(x));
+            x++;
         }
-        System.out.println(sum);
-        sum = sum - 100000001;
-        System.out.println(sum);
-        System.out.println(sum / (palindromeList.size()));
+        x -= 20;
+        System.out.println(sum / x);
     }
         public static String findSuperPalindromes() {
             for (int i = 0; i < palindromeList.size(); i++) {
