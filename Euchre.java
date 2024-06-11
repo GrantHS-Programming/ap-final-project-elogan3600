@@ -191,30 +191,47 @@ public class Euchre {
                     System.out.println("Does " + players[temp].getName() + " want to go alone?");
                     answer = myScanner.next();
                     goAlone(temp, answer);
+                    break;
                 }
                 temp++;
             }
         }
         //Game starts
         System.out.println();
-        System.out.println(players[start].getName() + " leads:");
+        System.out.println(players[start].getName() + " leads");
         int go = start;
         int winner = -1;
-        int play = -1;
+        int play = 0;
         boolean led = false;
+        Card ledCard = new Card(-1, "w");
         while (winner == -1) {
-            while (play == -1 ) {
+            while (play < 4 ) {
+                System.out.println(players[start].getName() + " hand:");
                 players[start].printHand();
-                System.out.println("What would " + players[start] + " like to play?");
+                System.out.println("What would " + players[start].getName() + " like to play?");
                 play = myScanner.nextInt();
                 if (play < 1 || play > players[start].getHandSize()) {
                     play = -1;
                     System.out.println("Not a valid option");
                 }
+                else if (!led) {
+                    ledCard = players[start].getHand(play - 1);
+                    System.out.println(Card.print(players[start].removeHand(play - 1)) + " is led");
+                    led = true;
+                    start++;
+                    play++;
+                }
+                //why does this crash?
+                else if (players[start].getHand(play).getSuit().equals(ledCard.getSuit())){
+                    System.out.println(Card.print(players[start].removeHand(play - 1)) + " is played");
+                    start++;
+                    play++;
+                }
+                else {
+                    System.out.println("Not a valid option");
+                }
             }
 
-            System.out.println(Card.print(players[start].removeHand(play - 1)) + " is led");
-            //why does this crash?
 
 
         }

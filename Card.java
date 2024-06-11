@@ -34,6 +34,8 @@ public class Card {
 
 
     }
+
+
     public static void trumpSuit(String suit) {
         trump = suit;
         if (trump.equals("spades")) {
@@ -48,6 +50,9 @@ public class Card {
         if (trump.equals("diamonds")) {
             opposite = "hearts";
         }
+    }
+    public void setSuit(String suit) {
+        this.suit = suit;
     }
     public static boolean isTrump(String suit) {
         if (trump.equals(suit)) {
@@ -91,6 +96,7 @@ public class Card {
             }
             else if (deck.get(x).getSuit().equals(opposite) && deck.get(x).getFace().equals("jack")) {
                 deck.get(x).addValue(9);
+                deck.get(x).setSuit(trump);
             }
         }
     }

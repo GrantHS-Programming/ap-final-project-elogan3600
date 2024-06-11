@@ -49,6 +49,9 @@ public class Player {
     public ArrayList<Card> getHand() {
         return hand;
     }
+    public Card getHand(int index) {
+        return hand.get(index);
+    }
     public void setTurnNum(int turnNum) {
         this.turnNum = turnNum;
     }
@@ -59,8 +62,7 @@ public class Player {
         }
     }
     public Card removeHand(int index) {
-        Card temp = this.hand.remove(index);
-        return temp;
+        return this.hand.remove(index);
     }
     public void printHand() {
         for (int x = 0; x < hand.size(); x++) {
