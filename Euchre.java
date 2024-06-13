@@ -202,35 +202,49 @@ public class Euchre {
         int go = start;
         int winner = -1;
         int play = 0;
+        int total = 0;
         boolean led = false;
         Card ledCard = new Card(-1, "w");
+        ArrayList<Card> thisTrick = new ArrayList<>();
         while (winner == -1) {
-            while (play < 4 ) {
+            while (total < 4 ) {
                 System.out.println(players[start].getName() + " hand:");
                 players[start].printHand();
                 System.out.println("What would " + players[start].getName() + " like to play?");
                 play = myScanner.nextInt();
                 if (play < 1 || play > players[start].getHandSize()) {
-                    play = -1;
                     System.out.println("Not a valid option");
                 }
                 else if (!led) {
                     ledCard = players[start].getHand(play - 1);
-                    System.out.println(Card.print(players[start].removeHand(play - 1)) + " is led");
+                    System.out.println(Card.print(players[start].getHand(play - 1)) + " is led");
+                    thisTrick.add(players[start].removeHand(play - 1));
                     led = true;
-                    start++;
-                    play++;
+                    if (start == 3) {
+                        start = 0;
+                    }
+                    else {
+                        start++;
+                    }
+                    total++;
                 }
                 //why does this crash?
-                else if (players[start].getHand(play).getSuit().equals(ledCard.getSuit())){
-                    System.out.println(Card.print(players[start].removeHand(play - 1)) + " is played");
-                    start++;
-                    play++;
+                else if (players[start].getHand(play - 1).getSuit().equals(ledCard.getSuit()) || !(Card.inHand(ledCard.getSuit(), players[start].getHand()))){
+                    System.out.println(Card.print(players[start].getHand(play - 1)) + " is played");
+                    thisTrick.add(players[start].removeHand(play - 1));
+                    if (start == 3) {
+                        start = 0;
+                    }
+                    else {
+                        start++;
+                    }
+                    total++;
                 }
                 else {
                     System.out.println("Not a valid option");
                 }
             }
+            System.out.println("Trick taken by ");
 
 
 

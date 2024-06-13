@@ -34,7 +34,25 @@ public class Card {
 
 
     }
-
+    public static boolean inHand(String suit, ArrayList<Card> hand) {
+        for (int x = 0; x < hand.size(); x++) {
+            if (hand.get(x).getSuit().equals(suit)) {
+                return true;
+            }
+        }
+        return false;
+    }
+//    public static int trickTaken(ArrayList<Card> thisTrick, int go) {
+//        Card highest = new Card(thisTrick.get(0).getActualValue(), thisTrick.get(0).getSuit());
+//        int hNum = 0;
+//        for (int x = 1; x < thisTrick.size(); x++) {
+//            if (thisTrick.get(x).getActualValue() > highest.getActualValue() && (thisTrick.get(x).getSuit().equals(highest.getSuit()) || thisTrick.get(x).getSuit().equals(trump))) {
+//                highest = thisTrick.get(x);
+//                hNum = x;
+//            }
+//        }
+//
+//    }
 
     public static void trumpSuit(String suit) {
         trump = suit;
